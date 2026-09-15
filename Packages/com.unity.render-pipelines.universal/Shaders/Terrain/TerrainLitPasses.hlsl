@@ -502,7 +502,8 @@ void SplatmapFragment(
     return PackGBuffersBRDFData(brdfData, inputData, smoothness, color.rgb, occlusion);
 #else
 
-    half4 color = UniversalFragmentPBR(inputData, albedo, metallic, /* specular */ half3(0.0h, 0.0h, 0.0h), smoothness, occlusion, /* emission */ half3(0, 0, 0), alpha);
+    half4 specularGloss = half4(0.0h, 0.0h, 0.0h, smoothness);
+    half4 color = UniversalFragmentBlinnPhong(inputData, albedo, specularGloss, smoothness, half3(0, 0, 0), alpha);
 
     SplatmapFinalColor(color, inputData.fogCoord);
 
